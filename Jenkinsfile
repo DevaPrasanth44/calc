@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        PYTHON = "C:\\Users\\Deva\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
         VENV = "venv"
     }
 
@@ -9,7 +10,6 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                echo 'Cloning repository...'
                 checkout scm
             }
         }
@@ -17,16 +17,15 @@ pipeline {
         stage('Verify Python') {
             steps {
                 bat '''
-                python --version
+                "%PYTHON%" --version
                 '''
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Setting up Python virtual environment...'
                 bat '''
-                python -m venv %VENV%
+                "%PYTHON%" -m venv %VENV%
                 %VENV%\\Scripts\\python -m pip install --upgrade pip
                 %VENV%\\Scripts\\pip install pytest
                 '''
@@ -35,7 +34,6 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running unit tests...'
                 bat '''
                 %VENV%\\Scripts\\pytest tests
                 '''
