@@ -32,13 +32,14 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                bat '''
-                %VENV%\\Scripts\\pytest tests
-                '''
-            }
-        }
+       stage('Test') {
+    steps {
+        bat '''
+        venv\\Scripts\\pytest
+        '''
+    }
+}
+
     }
 
     post {
