@@ -17,12 +17,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Setting up Python virtual environment...'
-                sh '''
-                    python3 --version
-                    python3 -m venv $VENV
-                    . $VENV/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                bat '''
+                python --version
+                python -m venv %VENV%
+                %VENV%\\Scripts\\pip install --upgrade pip
+                %VENV%\\Scripts\\pip install -r requirements.txt
                 '''
             }
         }
@@ -30,9 +29,8 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running unit tests...'
-                sh '''
-                    . $VENV/bin/activate
-                    pytest
+                bat '''
+                %VENV%\\Scripts\\pytest
                 '''
             }
         }
