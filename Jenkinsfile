@@ -14,14 +14,21 @@ pipeline {
             }
         }
 
+        stage('Verify Python') {
+            steps {
+                bat '''
+                python --version
+                '''
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Setting up Python virtual environment...'
                 bat '''
-                python --version
                 python -m venv %VENV%
-                %VENV%\\Scripts\\pip install --upgrade pip
-                %VENV%\\Scripts\\pip install -r requirements.txt
+                %VENV%\\Scripts\\python -m pip install --upgrade pip
+                %VENV%\\Scripts\\pip install pytest
                 '''
             }
         }
@@ -30,7 +37,7 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 bat '''
-                %VENV%\\Scripts\\pytest
+                %VENV%\\Scripts\\pytest tests
                 '''
             }
         }
