@@ -39,6 +39,16 @@ pipeline {
         '''
     }
 }
+stage('Run Calculator') {
+    steps {
+        bat '''
+        set NUMBER1=%NUMBER1%
+        set NUMBER2=%NUMBER2%
+        set OPERATION=%OPERATION%
+        %VENV%\\Scripts\\python run_calculator.py
+        '''
+    }
+}
 
     }
 
