@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+     tools {
+        git 'git'
+    }
+
     environment {
         VENV = "venv"
         PYTHON_PATH = "C:\\Users\\Deva\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
